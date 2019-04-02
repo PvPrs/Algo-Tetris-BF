@@ -12,14 +12,6 @@
 
 #include "fillit.h"
 
-/*
-** DEFGROUP
-** T_SIZE represents the maximum amount of tetrimino's
-** BUFF_SIZE represents the maximum amount of bits read
-*/
-#define T_SIZE 26
-#define BUFF_SIZE 16
-
 /**
  *
  * @param argc Counts the amount of arguments given, default is 1.
@@ -34,12 +26,21 @@
  */
 int		main(int argc, char **argv)
 {
-	char buf[T_SIZE][BUFF_SIZE];
+	char **buf;
 
+	buf = malloc(T_SIZE * sizeof(*buf));
 	if (argc != 2)
 	{
 		ft_putendl("USAGE: fillit [FILE]");
 		return (0);
 	}
-	ft_read(argv[0], buf);
+	ft_read(argv[1], buf);
+	int index;
+
+	index = 0;
+	while (buf[index] != NULL)
+	{
+		printf("%s\n", buf[index]);
+		index++;
+	}
 }

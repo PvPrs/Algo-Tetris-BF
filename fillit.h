@@ -14,6 +14,15 @@
 #define FILLIT_H
 
 #include "libft.h"
+#include <stdio.h>
+
+/*
+** DEFGROUP
+** T_SIZE represents the maximum amount of tetrimino's
+** BUFF_SIZE represents the maximum amount of bits read
+*/
+#define T_SIZE 26
+#define BUFF_SIZE 21
 
 /*
 ** @struct Typedef = tetrimino
@@ -22,14 +31,14 @@
 ** ID, represents the tetrimino ID.
 */
 
-typedef struct
+typedef struct	s_tetrimino
 {
 	int x[4];
 	int y[4];
 	int id;
-	t_tetrimino *next;
+	struct s_tetrimino *next;
 }		t_tetrimino;
 
-int		ft_read(char *file);
+int		ft_read(const char *file, char **buf);
 
 #endif //FILLIT_FILLIT_H

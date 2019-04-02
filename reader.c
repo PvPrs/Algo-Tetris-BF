@@ -25,10 +25,6 @@
  *
  * EXAMPLE:
  * Coords start at 0, 0 and end at 4, 4
- * ....
- * ....
- * ....
- * ....
  */
 
 int		ft_read(const char *file, char **buf)
@@ -40,11 +36,11 @@ int		ft_read(const char *file, char **buf)
 	t_index = 0;
 	ret = 1;
 	fd = open(file, O_RDONLY);
-	while (t_index != 26 && ret > 0)
+	while (ret != EOF && t_index < 26)
 	{
-		ret = read(fd, buf[t_index], 16);
+		buf[t_index] = malloc(BUFF_SIZE * sizeof(buf));
+		ret = read(fd, buf[t_index], 21);
 		t_index++;
 	}
-//	current = tetrimino.next;
-//	current = {.id = 1, .x[1] = 0};
+	return (0);
 }
