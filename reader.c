@@ -24,14 +24,14 @@
  * possible solution to the smallest possible square
  *
  * EXAMPLE:
- * Coords start at 0, 0
+ * Coords start at 0, 0 and end at 4, 4
  *          ....
  *          ....
  *          ....
  *          ....
  */
 int		ft_read(const char *file, char **buf)
-{
+{ß
 	int fd;
 	int curr;
 
