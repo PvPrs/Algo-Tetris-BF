@@ -13,7 +13,7 @@
 #include "fillit.h"
 #include <fcntl.h>
 
-/**
+/**ß
  *
  * @param file represents the file name to be read.
  * @return returns an integer
@@ -22,6 +22,13 @@
  * @PURPOSE:
  * The purpose of the tetrimino's is to find the smallest
  * possible solution to the smallest possible square
+ *
+ * EXAMPLE:
+ * Coords start at 0, 0
+ *          ....
+ *          ....
+ *          ....
+ *          ....
  */
 int		ft_read(const char *file, char **buf)
 {
