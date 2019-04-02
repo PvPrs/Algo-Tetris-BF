@@ -13,7 +13,7 @@
 #include "fillit.h"
 #include <fcntl.h>
 
-/**ß
+/**
  *
  * @param file represents the file name to be read.
  * @return returns an integer
@@ -25,19 +25,26 @@
  *
  * EXAMPLE:
  * Coords start at 0, 0 and end at 4, 4
- *          ....
- *          ....
- *          ....
- *          ....
+ * ....
+ * ....
+ * ....
+ * ....
  */
-int		ft_read(const char *file, char **buf)
-{ß
-	int fd;
-	int curr;
 
+int		ft_read(const char *file, char **buf)
+{
+	int fd;
+	int t_index;
+	int ret;
+
+	t_index = 0;
+	ret = 1;
 	fd = open(file, O_RDONLY);
-	buf = malloc(sizeof())
-	read()
-	current = tetrimino.next;
-	current = {.id = 1, .x[1] = 0};
+	while (t_index != 26 && ret > 0)
+	{
+		ret = read(fd, buf[t_index], 16);
+		t_index++;
+	}
+//	current = tetrimino.next;
+//	current = {.id = 1, .x[1] = 0};
 }
