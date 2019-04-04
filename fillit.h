@@ -41,7 +41,7 @@ typedef struct	s_tetrimino
 
 int		ft_read(const char *file, char **buf);
 int		ft_sort_list(char **buf);
-int		ft_check_validity(char *buf);
+int		ft_validator(char *buf);
 
 
 #endif //FILLIT_FILLIT_H

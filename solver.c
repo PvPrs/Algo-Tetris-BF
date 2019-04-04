@@ -10,4 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
+/**
+ * Find the smallest possible square with holes to
+ * Each tetrimino
+ * @return
+ */
+int ft_solve()
