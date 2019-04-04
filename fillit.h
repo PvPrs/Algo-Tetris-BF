@@ -33,12 +33,15 @@
 
 typedef struct	s_tetrimino
 {
-	int x[4];
-	int y[4];
-	int id;
-	struct s_tetrimino *next;
-}		t_tetrimino;
+	int			x[4];
+	int 		y[4];
+	int			id;
+	struct		s_tetrimino *next;
+}				t_tetrimino;
 
 int		ft_read(const char *file, char **buf);
+int		ft_sort_list(char **buf);
+int		ft_check_validity(char *buf);
+
 
 #endif //FILLIT_FILLIT_H

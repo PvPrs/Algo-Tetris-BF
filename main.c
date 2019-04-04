@@ -35,12 +35,9 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	ft_read(argv[1], buf);
-	int index;
-
-	index = 0;
-	while (buf[index] != NULL)
+	if (ft_sort_list(buf) == -1)
 	{
-		printf("%s\n", buf[index]);
-		index++;
+		ft_putendl("The applied file contains an incorrect set of tetrimino's.");
+		return (-1);
 	}
 }
