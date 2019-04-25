@@ -26,8 +26,10 @@
  */
 int		main(int argc, char **argv)
 {
-	char **buf;
+	t_tetrimino	*lst;
+	char		**buf;
 
+	lst = NULL;
 	buf = malloc(T_SIZE * sizeof(*buf));
 	if (argc != 2)
 	{
@@ -35,9 +37,12 @@ int		main(int argc, char **argv)
 		return (0);
 	}
 	ft_read(argv[1], buf);
-	if (ft_sort_list(buf) == -1)
+	lst = ft_sort_list(buf);
+	if (lst == NULL)
 	{
 		ft_putendl("The applied file contains an incorrect set of tetrimino's.");
 		return (-1);
+	} else {
+		ft_solve(lst);
 	}
 }

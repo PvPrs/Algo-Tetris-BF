@@ -41,10 +41,10 @@ int		ft_read(const char *file, char **buf)
 	while (ret > 0 && t_index < 26)
 	{
 		buf[t_index] = malloc(BUFF_SIZE * sizeof(**buf));
-		ret = read(fd, buf[t_index], BUFF_SIZE);  /// READ FUNCTION CLEARS THE ARRAY
-		t_index++;
+		ret = read(fd, buf[t_index], BUFF_SIZE);
 		if (ret != 21)
 			break;
+		t_index++;
 	}
 	return (0);
 }

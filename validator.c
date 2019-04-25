@@ -2,6 +2,8 @@
 // Created by Dave Van bochove on 2019-04-04.
 //
 
+#include "fillit.h"
+
 /**
  * Checks if the tetrimino's are valid and if each Tetrimino Block touchest atleast another block.
  * Check if the read '#' tetrimino block has any adjacent blocks, if not, we can discard the tetrimino.
