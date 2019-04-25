@@ -2,7 +2,7 @@
 // Created by Dave Van bochove on 2019-04-04.
 //
 
-#include "fillit.h"
+#include "../includes/fillit.h"
 
 /**
  * Checks if the tetrimino's are valid and if each Tetrimino Block touchest atleast another block.

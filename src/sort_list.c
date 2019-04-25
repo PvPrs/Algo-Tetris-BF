@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../includes/fillit.h"
 
 /**
  * The purpose of sort_list is to sort the 2D Array into a sorted list of tetrimino's
