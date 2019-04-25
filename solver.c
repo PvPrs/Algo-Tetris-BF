@@ -42,5 +42,3 @@ char	*ft_solve(t_tetrimino *lst)
 	}
 	return (0);
 }
-
-char
