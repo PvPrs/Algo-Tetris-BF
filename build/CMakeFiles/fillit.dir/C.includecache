@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../libft/includes/libft.h
+string.h
+-
+stdlib.h
+-
+unistd.h
+-
+ctype.h
+-
+
+/Users/dvan-boc/Desktop/fillit/includes/fillit.h
+libft.h
+/Users/dvan-boc/Desktop/fillit/includes/libft.h
+stdio.h
+-
+
+/Users/dvan-boc/Desktop/fillit/src/main.c
+../includes/fillit.h
+/Users/dvan-boc/Desktop/fillit/includes/fillit.h
+
+/Users/dvan-boc/Desktop/fillit/src/reader.c
+../includes/fillit.h
+/Users/dvan-boc/Desktop/fillit/includes/fillit.h
+fcntl.h
+-
+
+/Users/dvan-boc/Desktop/fillit/src/solver.c
+../includes/fillit.h
+/Users/dvan-boc/Desktop/fillit/includes/fillit.h
+
+/Users/dvan-boc/Desktop/fillit/src/sort_list.c
+../includes/fillit.h
+/Users/dvan-boc/Desktop/fillit/includes/fillit.h
+
+/Users/dvan-boc/Desktop/fillit/src/validator.c
+../includes/fillit.h
+/Users/dvan-boc/Desktop/fillit/includes/fillit.h
+
