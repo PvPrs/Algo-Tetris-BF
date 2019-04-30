@@ -32,9 +32,7 @@ int		ft_read(const char *file, char **buf)
 	int fd;
 	int t_index;
 	int ret;
-	int index;
 
-	index = 0;
 	t_index = 0;
 	ret = 1;
 	fd = open(file, O_RDONLY);
@@ -46,5 +44,5 @@ int		ft_read(const char *file, char **buf)
 			break;
 		t_index++;
 	}
-	return (0);
+	return (t_index);
 }

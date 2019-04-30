@@ -11,7 +11,9 @@ add_executable(fillit
         src/solver.c)
 
 # includes external header files
-target_include_directories(fillit PRIVATE ${CMAKE_SOURCE_DIR}/libft/includes)
+target_include_directories(fillit PRIVATE
+        ${CMAKE_SOURCE_DIR}/libft/includes)
 
-# includes libraries
-target_link_libraries(fillit ${CMAKE_SOURCE_DIR}/libft/libft.a)
+# Links libraries
+target_link_libraries(fillit
+        ${CMAKE_SOURCE_DIR}/libft/libft.a)

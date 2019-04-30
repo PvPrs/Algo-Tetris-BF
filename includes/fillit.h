@@ -42,5 +42,7 @@ int				ft_read(const char *file, char **buf);
 t_tetrimino		*ft_sort_list(char **buf);
 int				ft_validator(char *buf);
 char			*ft_solve(t_tetrimino *lst);
+char			**ft_grid_gen(int size);
+void				substract_coordinates(t_tetrimino *head, int check);
 
 #endif //FILLIT_FILLIT_H

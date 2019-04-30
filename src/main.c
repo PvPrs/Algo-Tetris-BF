@@ -28,6 +28,8 @@ int		main(int argc, char **argv)
 {
 	t_tetrimino	*lst;
 	char		**buf;
+	int			size;
+	int			i;
 
 	lst = NULL;
 	buf = malloc(T_SIZE * sizeof(*buf));
@@ -36,7 +38,7 @@ int		main(int argc, char **argv)
 		ft_putendl("USAGE: fillit [FILE]");
 		return (0);
 	}
-	ft_read(argv[1], buf);
+	size = ft_read(argv[1], buf);
 	lst = ft_sort_list(buf);
 	if (lst == NULL)
 	{
@@ -44,5 +46,8 @@ int		main(int argc, char **argv)
 		return (-1);
 	} else {
 		ft_solve(lst);
+//		substract_coordinates(lst, 1);
+//		ft_solve(lst);
+
 	}
 }

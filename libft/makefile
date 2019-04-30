@@ -10,7 +10,7 @@
 #                                                                              #
 #******************************************************************************#
 
-NAME = libft.a
+NAME = libft.so
 
 HEADER = includes/ \
 		 io/get_next_line.h \
@@ -153,7 +153,7 @@ all: $(NAME)
 
 $(NAME):
 	gcc -Wall -Werror -Wextra -I $(HEADER) -c $(SRC)
-	ar rc $(NAME) $(OBJ)
+	gcc -Wall -Werror -Wextra -shared $(OBJ) -o $(NAME)
 
 clean:
 	rm -f *.o \
