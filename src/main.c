@@ -30,6 +30,7 @@ int		main(int argc, char **argv)
 	char		**buf;
 	int			size;
 	int			i;
+	char		**grid;
 
 	lst = NULL;
 	buf = malloc(T_SIZE * sizeof(*buf));
@@ -45,9 +46,14 @@ int		main(int argc, char **argv)
 		ft_putendl("The applied file contains an incorrect set of tetrimino's.");
 		return (-1);
 	} else {
-		ft_solve(lst);
-//		substract_coordinates(lst, 1);
-//		ft_solve(lst);
-
+		printf("SIZE: %d\n", size);
+		grid = ft_grid_gen(size);
+		subtractCoordinates(lst, 1);
+		ft_solve(lst, grid);
+		i = 0;
+		while (i < size)
+		{
+			printf("%s\n", grid[i++]);
+		}
 	}
 }

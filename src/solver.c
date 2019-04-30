@@ -12,7 +12,6 @@
 
 #include "../includes/fillit.h"
 
-#define x y
 /**
  * Find the smallest possible square with holes to
  * Each tetrimino must be placed in specific order starting from Tetrimino 'A' until the last set.
@@ -29,26 +28,24 @@
  * 			AABD\n
  * 			CCBD\n
  * 			CCBD\n
- *
- * @TODO: LIST, all the coordinates minus the lowest coordinate;
- * 		lowest - lowest
- * 	EXAMPLE:
- *    2,2	0, 1
- *    3,1	1, 0
- *    3,2	1, 1
- *    3,3	1, 2
  */
-
-char	*ft_solve(t_tetrimino *lst)
+char	*ft_solve(t_tetrimino *lst, char **grid)
 {
-	while (lst->next != NULL)
+	int index;
+//	int gindex;
+
+//	size = 4;
+//	gindex = 9;
+//
+//	9 / 4 = 2;
+//	9 % 4 = 1;
+//	while gindex < size * size
+
+	index = 0;
+	while (index < 4)
 	{
-		printf("\n\n SOLVER: ");
-		printf("1: x: %d, y: %d\n", lst->x[0], lst->y[0]);
-		printf("2: x: %d, y: %d\n", lst->x[1], lst->y[1]);
-		printf("3: x: %d, y: %d\n", lst->x[2], lst->y[2]);
-		printf("4: x: %d, y: %d\n", lst->x[3], lst->y[3]);
-		lst = lst->next;
+		grid[lst->y[index] + (gindex / size) ][lst->x[index] + (gindex % size)] = 'A';
+		index++;
 	}
 	return (0);
 }
@@ -86,7 +83,18 @@ char	**ft_grid_gen(int size)
 	return (map);
 }
 
-void		substract_coordinates(t_tetrimino *head, int check)
+/**
+ *
+ * LIST, all the coordinates minus the lowest coordinate;
+ *
+ * 	lowest - lowest
+ * 	EXAMPLE:
+ *    2,2	0, 1
+ *    3,1	1, 0
+ *    3,2	1, 1
+ *    3,3	1, 2
+ */
+void		subtractCoordinates(t_tetrimino *head, int check)
 {
 	t_tetrimino *current;
 	int lowest;
@@ -94,11 +102,11 @@ void		substract_coordinates(t_tetrimino *head, int check)
 	int *coords;
 
 	current = head;
-	coords = (check) ? current->x : current->y;
 	while (current->next != NULL)
 	{
 		lowest = 2100;
 		index = 0;
+		coords = (check) ? current->x : current->y;
 		while (index < 4)
 		{
 			lowest = (coords[index] < lowest) ? coords[index] : lowest;
@@ -107,14 +115,12 @@ void		substract_coordinates(t_tetrimino *head, int check)
 		index = 0;
 		while (index < 4)
 		{
-			printf("coords: %d, lowest: %d\n", coords[index], lowest);
 			coords[index] -= lowest;
-			printf("coords 2: %d\n", coords[index]);
 			index++;
 		}
 		current = current->next;
 	}
 	if (check)
-		substract_coordinates(head, 0);
+		subtractCoordinates(head, 0);
 }
 
