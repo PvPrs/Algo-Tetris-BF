@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fillit.h"
+#include "stdlib.h"
 
 /**
  * Find the smallest possible square with holes to
@@ -28,71 +29,173 @@
  * 			AABD\n
  * 			CCBD\n
  * 			CCBD\n
+ *
+ * 			check if 'a' fits, if 'a' fits, check if Return ((recursive func)current->next fits),
+ * 			if it fits, check if the next Return ((recursive func)current->next fits), if ret == 1 succeed.
+ *
  */
-char	*ft_solve(t_tetrimino *lst, char **grid)
-{
-	int index;
-//	int gindex;
 
-//	size = 4;
-//	gindex = 9;
+//void	ft_solve(t_tetrimino *head, char ***grid, int size)
+//{
+//	t_tetrimino	*current;
+//	int ret;
+//	int index_y;
+//	int index_x;
 //
-//	9 / 4 = 2;
-//	9 % 4 = 1;
-//	while gindex < size * size
-
-	index = 0;
-	while (index < 4)
-	{
-		grid[lst->y[index] + (gindex / size) ][lst->x[index] + (gindex % size)] = 'A';
-		index++;
-	}
-	return (0);
-}
+//	current = head;
+//
+//	index_x = 0;
+//	index_y = 0;
+//	while (current->next != NULL)
+//	{
+//		printf("%d\n", size);
+//		printf("index_y: %d, index_x: %d\n", index_y, index_x);
+//		ret = check_all_tetriminos(grid, current, index_y, index_x);
+//		if (ret == -1)
+//		{
+//			return (0);
+////			printf("GETS HERE2!\n");
+////			size = ft_strlen(*grid[0]);
+////			printf("GRID ADR3: %p\n", grid);
+////			clear_grid(*grid);
+////			printf("GRID ADR4: %p\n", grid);
+////			getchar();
+////			printf("grid: %s\n", *grid[0]);
+////			*grid = ft_grid_gen(size + 1); // GETS SEGFAULT "AFTER" CREATION OF NEW GRID CAUSED by Assigning MALLOCED SPACE, to a function used to malloc the grid!
+////			index_x = 0;
+////			index_y = 0;
+////			current = head;
+//		}
+//		if (ret == 1)
+//		{
+//			current = current->next;
+//			index_y++;
+//			if (index_y == size - 1)
+//				index_x++;
+//		}
+//	}
+//	int index = 0;
+////	while (index < size)
+////	{
+////		printf("%s\n", grid[index]);
+////		index++;
+////	}
+//}
 
 /**
- * Genererates a 2D Array performing as a grid
- * the size of the grid is based on the amount of tetrimino's
- * possible minimum required elements is = √𝑛 ⋅ 4
  * @param size
- * @param size_elem
- * @return
+ * MAKE THIS RECURSIIVE AND RETURN THE CORRECT THE RETURN STATEMENTS ON THE RIGHT TIME.
+ * AND INCREASE THE INDEX_Y AND INDEX_X everytime it does not fit at the specific index.
+ * @return -1 = Checked the entire grid, 0 = doesn't fit on specific index, 1 = fits.
+ * Y = vertical - line number
+ * X = horizontal - on the line
  */
-char	**ft_grid_gen(int size)
-{
-	char	**map;
-	int		index;
-	int		elem_index;
-	int		sq_root;
 
-	index = 0;
-	elem_index = 0;
-	sq_root = ft_sqrt(size * 4);
-	map = (char**)malloc(sq_root * sizeof(char *));
-	while (index < sq_root)
+int		check_all_tetriminos(char **grid, t_tetrimino *current, int index_y, int index_x)
+{
+    int size;
+    int ret;
+    int y = 0;
+    while (grid[y] != NULL)
+    {
+        printf("%s\n", grid[y]);
+        y++;
+    }
+    printf("\n");
+    size = ft_strlen(grid[0]);
+
+
+    ret = check_tetrimino(grid, *current, index_y, index_x);
+    if (ret == 0)
+    {
+        printf("RETURN: %d, %c Does not fit on index Y:%d, X:%d\n", ret, current->letter, index_y, index_x);
+        printf("'%c' on grid: x:%d, y:%d", current->letter, current->grid_y, current->grid_y);
+        if (index_x < (size - 1))
+            ++index_x;
+        else
+        {
+            ++index_y;
+            index_x = 0;
+        }
+    }
+    if (ret == 1)
+    {
+        printf("RETURN: %d, Succes! %c Fits on index: Y:%d, X:%d\n", ret, current->letter, index_y, index_x);
+        printf("'%c' on grid: x:%d, y:%d", current->letter, current->grid_y, current->grid_y);
+        if (current->next == NULL)
+            return (1);
+        current = current->next;
+        index_x = 0;
+        index_y = 0;
+    }
+    if (ret == -1) // delete previous tetrimino, and try again, if 'A ' reaches end of grid, return -1 to increase grid size
+    {
+        printf("RETURN: %d\n", ret);
+        return (-1);
+    }
+    getchar();
+
+    while (check_all_tetriminos(grid, current, index_y++, index_x++) == -1)
+    {
+        getchar();
+        printf("ret -1_in_loop: %c index_y: %d, index_x: %d\n", current->letter, index_y, index_x);
+        current = current->prev;
+        delete_from_grid(grid, *current);
+        index_y = current->grid_y;
+        index_x = current->grid_x;
+    }
+    printf("ret 3: index_y: %d, index_x: %d\n", index_y, index_x);
+    getchar();
+    return (check_all_tetriminos(grid, current, index_y, index_x));
+}
+
+
+/**
+ * @param size
+ * MAKE THIS RECURSIIVE AND RETURN THE CORRECT THE RETURN STATEMENTS ON THE RIGHT TIME.
+ * AND INCREASE THE INDEX_Y AND INDEX_X everytime it does not fit at the specific index.
+ * @return -1 = Checked the entire grid, 0 = doesn't fit on specific index, 1 = fits.
+ * Y = vertical - line number
+ * X = horizontal - on the line
+ */
+
+
+int		check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x)
+{
+	int y;
+	int x;
+	int size;
+	size = strlen(grid[0]);
+	x = 0;
+	y = 0;
+
+	while (x < 4)
 	{
-		map[index] = (char*)malloc(sq_root * sizeof(char));
-		while (elem_index < sq_root)
-		{
-			map[index][elem_index] = '.';
-			elem_index++;
+		if (index_y + current.y[y] >= size) {
+			return (-1);
 		}
-		index++;
-		elem_index = 0;
+		if (grid[index_y + current.y[y]][index_x + current.x[x]] != '.') {
+			return (0);
+		}
+		x++;
+		y++;
 	}
-	return (map);
+	printf("'%c' index_y: %d\n", current.letter, index_y);
+	current.grid_y = index_y;
+	current.grid_x = index_x;
+	return (add_to_grid(grid, current, index_y, index_x));
 }
 
 /**
+ * Subtracts the coordinates so that both X and Y
+ * are decreased to the most upleft top, eliminating all the unused coordinates.
+ * @Formula: find the lowest X or Y coordinate and decrease all the coords by the lowest.
  *
- * LIST, all the coordinates minus the lowest coordinate;
- *
- * 	lowest - lowest
  * 	EXAMPLE:
- *    2,2	0, 1
- *    3,1	1, 0
- *    3,2	1, 1
- *    3,3	1, 2
+ *    2,2	becomes		0, 1
+ *    3,1	becomes		1, 0
+ *    3,2	becomes		1, 1
+ *    3,3	becomes		1, 2
  */
 void		subtractCoordinates(t_tetrimino *head, int check)
 {

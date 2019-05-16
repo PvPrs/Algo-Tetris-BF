@@ -25,8 +25,10 @@ t_tetrimino		*ft_sort_list(char **buf)
 	int x;
 	int y;
 	int block;
+	char id;
 	t_tetrimino *curr;
 	t_tetrimino *head;
+	char letter = 'A';
 
 	block = 0;
 	x = 0;
@@ -63,8 +65,12 @@ t_tetrimino		*ft_sort_list(char **buf)
 			index++;
 			x++;
 		}
+		curr->letter = letter;
 		curr->next = (t_tetrimino*)malloc(sizeof(t_tetrimino));
+		curr->next->prev = curr;
 		curr = curr->next;
+		id++;
+		letter++;
 		block = 0;
 		x = 0;
 		y = 0;

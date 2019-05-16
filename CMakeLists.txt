@@ -4,6 +4,7 @@ project(fillit C)
 set(CMAKE_C_STANDARD 99)
 
 add_executable(fillit
+        src/grid.c
         src/main.c
         src/sort_list.c
         src/reader.c

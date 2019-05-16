@@ -39,21 +39,24 @@ int		main(int argc, char **argv)
 		ft_putendl("USAGE: fillit [FILE]");
 		return (0);
 	}
-	size = ft_read(argv[1], buf);
+	size = 4;
+	ft_read(argv[1], buf);
 	lst = ft_sort_list(buf);
 	if (lst == NULL)
 	{
 		ft_putendl("The applied file contains an incorrect set of tetrimino's.");
 		return (-1);
 	} else {
-		printf("SIZE: %d\n", size);
+		//printf("SIZE: %d\n", size);
+		printf("GRID ADR1: %p\n", &grid);
 		grid = ft_grid_gen(size);
+		printf("GRID ADR2: %p\n", &grid);
 		subtractCoordinates(lst, 1);
-		ft_solve(lst, grid);
-		i = 0;
-		while (i < size)
-		{
-			printf("%s\n", grid[i++]);
-		}
+		check_all_tetriminos(grid, lst, 0, 0);
+//		i = 0;
+//		while (i < size)
+//		{
+//			printf("%s\n", grid[i++]);
+//		}
 	}
 }
