@@ -75,6 +75,8 @@ int		add_to_grid(char **grid, t_tetrimino current, int index_y, int index_x)
 	int elem;
 
 	elem = 0;
+	current.grid_y = index_y;
+	current.grid_x = index_x;
 	while (elem < 4)
 	{
 		grid[index_y + current.y[elem]][index_x + current.x[elem]] = current.letter;

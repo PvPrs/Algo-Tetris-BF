@@ -44,7 +44,7 @@ typedef struct	s_tetrimino
 
 int				ft_read(const char *file, char **buf);
 int				ft_validator(char *buf);
-void			ft_solve(t_tetrimino *lst, char **grid, int size);
+void			ft_solve(t_tetrimino *lst, int size);
 t_tetrimino		*ft_sort_list(char **buf);
 void			subtractCoordinates(t_tetrimino *head, int check);
 int				check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x);
