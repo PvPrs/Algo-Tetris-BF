@@ -10,21 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int    ft_sqrt(int nb)
-{
-	int    i;
-	int    r;
+#include <stdio.h>
 
-	i = 1;
-	r = 0;
-	if (nb == 1 || nb == 0)
-		return (nb);
-	while (r < nb)
-	{
-		r = i * i;
-		i++;
+#define NEXT(n, i)  (((n) + (i)/(n)) >> 1)
+
+unsigned int	ft_sqrt(unsigned int number) {
+	unsigned int n  = 1;
+	unsigned int n1 = NEXT(n, number);
+
+	while((n1 - n) > 1) {
+		n  = n1;
+		n1 = NEXT(n, number);
 	}
-	if (r == nb)
-		return (i - 1);
-	return (0);
+	while(n1*n1 > number)
+		n1--;
+	return n1;
 }

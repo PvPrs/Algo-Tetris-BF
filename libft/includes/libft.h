@@ -87,7 +87,7 @@ int					ft_isalpha(int c);
 char				*ft_strtolower(char *str);
 char				*ft_strtoupper(char *str);
 int					ft_isprime(int nbr);
-int					ft_sqrt(int nbr);
+unsigned long		ft_sqrt(unsigned long x);
 char				*ft_revstr(char *str);
 int					get_next_line(const int fd, char **line);
 int					ft_bit_to_max_int(int max_bit_size);

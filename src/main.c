@@ -39,9 +39,8 @@ int		main(int argc, char **argv)
 		ft_putendl("USAGE: fillit [FILE]");
 		return (0);
 	}
-	size = ft_read(argv[1], buf) + 1;
-	getchar();
-	lst = ft_sort_list(buf);
+	size = ft_read(argv[1], buf);
+	lst = ft_sort_list(buf, 0, 0, 0);
 	if (lst == NULL)
 	{
 		ft_putendl("The applied file contains an incorrect set of tetrimino's.");

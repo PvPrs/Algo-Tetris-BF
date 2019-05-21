@@ -35,8 +35,8 @@ typedef struct	s_tetrimino
 {
 	int			x[4];
 	int 		y[4];
-	int         grid_x;
-	int         grid_y;
+	int			grid_x;
+	int			grid_y;
 	char 		letter;
 	struct		s_tetrimino *next;
 	struct		s_tetrimino *prev;
@@ -44,15 +44,17 @@ typedef struct	s_tetrimino
 
 int				ft_read(const char *file, char **buf);
 int				ft_validator(char *buf);
-void			ft_solve(t_tetrimino *lst, int size);
-t_tetrimino		*ft_sort_list(char **buf);
+void			ft_solve(t_tetrimino *lst, size_t size);
+t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block);
 void			subtractCoordinates(t_tetrimino *head, int check);
 int				check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x);
 int				check_all_tetriminos(char **grid, t_tetrimino *head, int index_y, int index_x);
-char			**ft_grid_gen(int size);
+char			**ft_grid_gen(size_t size);
+size_t			ft_calc_sqrt(size_t size);
 void			clear_grid(char **grid);
 int				add_to_grid(char **grid, t_tetrimino current, int index_y, int index_x);
 void			delete_from_grid(char **grid, t_tetrimino current);
+void			reset_vars(int *block, int *x, int *y, int *index);
 
 
 #endif //FILLIT_FILLIT_H

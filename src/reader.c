@@ -34,15 +34,18 @@ int		ft_read(const char *file, char **buf)
 	int ret;
 
 	t_index = 0;
-	ret = 1;
 	fd = open(file, O_RDONLY);
-	while (ret > 0 && t_index < 26)
+	buf[t_index] = malloc(BUFF_SIZE * sizeof(**buf));
+	ret = read(fd, buf[t_index], BUFF_SIZE);
+	t_index++;
+	while (ret == 21 && t_index < 27)
 	{
 		buf[t_index] = malloc(BUFF_SIZE * sizeof(**buf));
 		ret = read(fd, buf[t_index], BUFF_SIZE);
-		if (ret != 21)
-			break;
 		t_index++;
 	}
+	if (ret != 20 || t_index == 27)
+		return (-t_index);
+	buf[t_index] = NULL;
 	return (t_index);
 }

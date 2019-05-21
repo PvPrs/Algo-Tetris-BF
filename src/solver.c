@@ -35,14 +35,22 @@
  *
  */
 
-void	ft_solve(t_tetrimino *current, int size)
+void	ft_solve(t_tetrimino *current, size_t size)
 {
 	char **grid;
+	int y;
+
+	y = 0;
 	grid = ft_grid_gen(size);
 	subtractCoordinates(current, 1);
 	while (check_all_tetriminos(grid, current, 0, 0) == -1)
 	{
-		grid = ft_grid_gen(5);
+		grid = ft_grid_gen(8);
+	}
+	while (grid[y] != NULL)
+	{
+		printf("%s\n", grid[y]);
+		y++;
 	}
 }
 
@@ -58,19 +66,13 @@ void	ft_solve(t_tetrimino *current, int size)
 int		check_all_tetriminos(char **grid, t_tetrimino *current, int index_y, int index_x)
 {
 	int size;
-	int ret;
-	int y = 0;
-	while (grid[y] != NULL)
-	{
-		printf("%s\n", grid[y]);
-		y++;
-	}
-	printf("\n");
+	int check_ret;
+	int y;
+
 	size = ft_strlen(grid[0]);
-	ret = check_tetrimino(grid, *current, index_y, index_x);
-	if (ret == 0)
+	check_ret = check_tetrimino(grid, *current, index_y, index_x);
+	if (check_ret == 0)
 	{
-		printf("RETURN: %d, %c Does not fit on index Y:%d, X:%d\n", ret, current->letter, index_y, index_x);
 		if (index_x < (size - 1))
 			++index_x;
 		else
@@ -79,10 +81,9 @@ int		check_all_tetriminos(char **grid, t_tetrimino *current, int index_y, int in
 			index_x = 0;
 		}
 	}
-	if (ret == 1)
+	if (check_ret == 1)
 	{
-		printf("RETURN: %d Fits on index: Y:%d, X:%d\n", ret, index_y, index_x);
-		if (current->next == NULL)
+		if (!(current->next->letter > 'A' && current->next->letter < 'Z'))
 			return (1);
 		current->grid_x = index_x;
 		current->grid_y = index_y;
@@ -90,7 +91,7 @@ int		check_all_tetriminos(char **grid, t_tetrimino *current, int index_y, int in
 		index_x = 0;
 		index_y = 0;
 	}
-	if (ret == -1)// delete previous tetrimino, and try again, if 'A ' reaches end of grid, return -1 to increase grid size
+	if (check_ret == -1)
 	{
 		current = current->prev;
 		delete_from_grid(grid, *current);
@@ -133,7 +134,7 @@ int		check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x)
 		x++;
 		y++;
 	}
-	printf("'%c' index_y: %d\n", current.letter, index_y);
+	printf("CHECK: '%c' index_y: %d, index_x: %d\n", current.letter, index_y, index_x);
 	return (add_to_grid(grid, current, index_y, index_x));
 }
 

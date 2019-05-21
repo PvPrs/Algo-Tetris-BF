@@ -18,33 +18,22 @@
  * @param buf A 2D Array containing the read Tetrimino's
  * @return Return 0 for succesfully sorted list, return -1 for invalid tetrimino's
  */
-t_tetrimino		*ft_sort_list(char **buf)
+t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 {
 	int t_index;
 	int index;
-	int x;
-	int y;
-	int block;
 	char id;
 	t_tetrimino *curr;
 	t_tetrimino *head;
 	char letter = 'A';
 
-	block = 0;
-	x = 0;
-	y = 0;
-	t_index = 0;
 	index = 0;
+	t_index = 0;
 	curr = (t_tetrimino*)malloc(sizeof(t_tetrimino));
 	head = curr;
-	while (buf[t_index])
+	while (buf[t_index] != NULL)
 	{
 		if (ft_validator(buf[t_index]) == -1) {
-			if (buf[t_index][0] == '\0')
-			{
-				free(curr);
-				break;
-			}
 			return (NULL);
 		}
 		while (buf[t_index][index])
@@ -71,11 +60,16 @@ t_tetrimino		*ft_sort_list(char **buf)
 		curr = curr->next;
 		id++;
 		letter++;
-		block = 0;
-		x = 0;
-		y = 0;
-		index = 0;
+		reset_vars(&block, &x, &y, &index);
 		t_index++;
 	}
 	return (head);
+}
+
+void		reset_vars(int *block, int *x, int *y, int *index)
+{
+	*index = 0;
+	*y = 0;
+	*x = 0;
+	*block = 0;
 }
