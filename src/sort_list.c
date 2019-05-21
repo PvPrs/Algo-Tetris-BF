@@ -12,20 +12,21 @@
 
 #include "../includes/fillit.h"
 
-/**
- * The purpose of sort_list is to sort the 2D Array into a sorted list of tetrimino's
- * Each tetrimino should be able to identify as a valid tetrimino.
- * @param buf A 2D Array containing the read Tetrimino's
- * @return Return 0 for succesfully sorted list, return -1 for invalid tetrimino's
- */
+/*
+** The purpose of sort_list is to sort the 2D Array
+** into a sorted list of tetrimino's. Each tetrimino
+** should be able to identify as a valid tetrimino.
+** @param buf A 2D Array containing the read Tetrimino's
+** @return 0 for succesfully sorted list
+** @return -1 for invalid tetrimino's
+*/
+
 t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 {
-	int t_index;
-	int index;
-	char id;
-	t_tetrimino *curr;
-	t_tetrimino *head;
-	char letter = 'A';
+	t_tetrimino	*curr;
+	t_tetrimino	*head;
+	int			t_index;
+	int			index;
 
 	index = 0;
 	t_index = 0;
@@ -33,43 +34,53 @@ t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 	head = curr;
 	while (buf[t_index] != NULL)
 	{
-		if (ft_validator(buf[t_index]) == -1) {
+		if (ft_validator(buf[t_index], 0, 0, 0) == -1)
 			return (NULL);
-		}
 		while (buf[t_index][index])
 		{
-			if (buf[t_index][index] == '\n' && index != 19)
-			{
-				y++;
-				x = 0;
-				index++;
-				continue;
-			}
 			if (buf[t_index][index] == '#')
-			{
-				curr->x[block] = x;
-				curr->y[block] = y;
-				block++;
-			}
+				(curr->x[block] = x) && (curr->y[block] = y) && block++;
+			buf[t_index][index] == '\n' && index != 19 ? (y++ && (x = 0)) : x++;
 			index++;
-			x++;
 		}
-		curr->letter = letter;
-		curr->next = (t_tetrimino*)malloc(sizeof(t_tetrimino));
-		curr->next->prev = curr;
-		curr = curr->next;
-		id++;
-		letter++;
+		list_adjustment(&curr);
 		reset_vars(&block, &x, &y, &index);
 		t_index++;
 	}
 	return (head);
 }
 
-void		reset_vars(int *block, int *x, int *y, int *index)
+/*
+** Resets all the variables of ft_sort_list
+** @param block pointer to block var
+** @param x pointer to x var
+** @param y pointer to y var
+** @param index pointer to index var
+*/
+
+void			reset_vars(int *block, int *x, int *y, int *index)
 {
 	*index = 0;
 	*y = 0;
 	*x = 0;
 	*block = 0;
+}
+
+/*
+** Addition to ft_sort_list, Adjusts the passed node to its desired completion.
+** @param curr pointer to the node of curr
+** @param flag
+*/
+
+void			list_adjustment(t_tetrimino **curr)
+{
+	static char letter = 'A';
+	t_tetrimino *node;
+
+	node = *curr;
+	node->letter = letter;
+	node->next = (t_tetrimino*)malloc(sizeof(t_tetrimino));
+	node->next->prev = node;
+	letter++;
+	*curr = node->next;
 }

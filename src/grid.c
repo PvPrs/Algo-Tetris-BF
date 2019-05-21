@@ -1,17 +1,27 @@
-//
-// Created by Dave Van bochove on 2019-05-15.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   grid.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dvan-boc <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2019/05/21 20:11:20 by dvan-boc      #+#    #+#                 */
+/*   Updated: 2019/05/21 20:11:25 by dvan-boc      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fillit.h"
 
-/**
- * Genererates a 2D Array performing as a grid
- * the size of the grid is based on the amount of tetrimino's
- * possible minimum required elements is = √𝑛 ⋅ 4
- * @param size
- * @param size_elem
- * @return
- */
-char	**ft_grid_gen(size_t size)
+/*
+** Genererates a 2D Array performing as a grid
+** the size of the grid is based on the amount of tetrimino's
+** possible minimum required elements is = √𝑛 ⋅ 4
+** @param size
+** @param size_elem
+** @return
+*/
+
+char		**ft_grid_gen(size_t size)
 {
 	char	**map;
 	int		index;
@@ -37,7 +47,15 @@ char	**ft_grid_gen(size_t size)
 	return (map);
 }
 
-size_t			ft_calc_sqrt(size_t size)
+/*
+** Calculates the minimum required grid sizze
+** the size of the grid is based on the amount of tetrimino's
+** possible minimum required elements is = √𝑛 ⋅ 4
+** @param size
+** @return size
+*/
+
+size_t		ft_calc_sqrt(size_t size)
 {
 	size_t min_root;
 	size_t blocks;
@@ -54,6 +72,13 @@ size_t			ft_calc_sqrt(size_t size)
 	}
 	return (0);
 }
+
+/*
+** Deletes a specific tetrimino from the grid
+** @param grid represents the array to remove from
+** @param current represents the current node
+** @return
+*/
 
 void		delete_from_grid(char **grid, t_tetrimino current)
 {
@@ -76,16 +101,25 @@ void		delete_from_grid(char **grid, t_tetrimino current)
 	}
 }
 
-int		add_to_grid(char **grid, t_tetrimino current, int index_y, int index_x)
+/*
+** Adds a specific tetrimino to the grid
+** @param grid represents the array to add to
+** @param current represents the current node
+** @param index_y line numbers
+** @param index_x horizontal index
+** @return
+*/
+
+int			add_to_grid(char **grid, t_tetrimino current, int y, int x)
 {
 	int elem;
 
 	elem = 0;
-	current.grid_y = index_y;
-	current.grid_x = index_x;
+	current.grid_y = y;
+	current.grid_x = x;
 	while (elem < 4)
 	{
-		grid[index_y + current.y[elem]][index_x + current.x[elem]] = current.letter;
+		grid[y + current.y[elem]][x + current.x[elem]] = current.letter;
 		elem++;
 	}
 	return (1);
