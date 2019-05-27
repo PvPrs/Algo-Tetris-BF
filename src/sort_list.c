@@ -25,27 +25,29 @@ t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 {
 	t_tetrimino	*curr;
 	t_tetrimino	*head;
-	int			t_index;
 	int			index;
 
 	index = 0;
-	t_index = 0;
-	curr = (t_tetrimino*)malloc(sizeof(t_tetrimino));
+	curr = malloc(sizeof(*curr));
 	head = curr;
-	while (buf[t_index] != NULL)
+	while (*buf != NULL)
 	{
-		if (ft_validator(buf[t_index], 0, 0, 0) == -1)
+		if (ft_validator(*buf, 0, 0, 0) == -1)
 			return (NULL);
-		while (buf[t_index][index])
+		while ((*buf)[index])
 		{
-			if (buf[t_index][index] == '#')
-				(curr->x[block] = x) && (curr->y[block] = y) && block++;
-			buf[t_index][index] == '\n' && index != 19 ? (y++ && (x = 0)) : x++;
+			if ((*buf)[index] == '#')
+			{
+				curr->x[block] = x;
+				curr->y[block] = y;
+				block++;
+			}
+			(*buf)[index] == '\n' && index != 19 ? y++, x = 0 : x++;
 			index++;
 		}
-		list_adjustment(&curr);
+		set_tetr_properties(&curr);
 		reset_vars(&block, &x, &y, &index);
-		t_index++;
+		buf++;
 	}
 	return (head);
 }
@@ -72,14 +74,14 @@ void			reset_vars(int *block, int *x, int *y, int *index)
 ** @param flag
 */
 
-void			list_adjustment(t_tetrimino **curr)
+void			set_tetr_properties(t_tetrimino **curr)
 {
 	static char letter = 'A';
 	t_tetrimino *node;
 
 	node = *curr;
 	node->letter = letter;
-	node->next = (t_tetrimino*)malloc(sizeof(t_tetrimino));
+	node->next = malloc(sizeof(*node));
 	node->next->prev = node;
 	letter++;
 	*curr = node->next;

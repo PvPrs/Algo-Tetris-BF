@@ -13,8 +13,7 @@
 #ifndef FILLIT_H
 #define FILLIT_H
 
-#include "libft.h"
-#include <stdio.h>
+#include "../libft/includes/libft.h"
 
 /*
 ** DEFGROUP
@@ -46,16 +45,16 @@ int				ft_read(const char *file, char **buf);
 int				ft_validator(char *buf, int blocks, int adjacent, int dots);
 void			ft_solve(t_tetrimino *lst, size_t size);
 t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block);
-void			subtract_coordinates(t_tetrimino *head, int check);
-int				check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x);
-int				check_all_tetr(char **grid, t_tetrimino *curr, int index_y, int index_x);
+void			subtract_coordinates(t_tetrimino *head, int check, int lowest);
+int				check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x);
+int				check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x);
 char			**ft_grid_gen(size_t size);
 size_t			ft_calc_sqrt(size_t size);
-void			clear_grid(char **grid);
 int				add_to_grid(char **grid, t_tetrimino current, int y, int x);
 void			delete_from_grid(char **grid, t_tetrimino current);
 void			reset_vars(int *block, int *x, int *y, int *index);
-void			list_adjustment(t_tetrimino **curr);
+void			set_tetr_properties(t_tetrimino **curr);
+void			assign_curr(t_tetrimino **curr, int *ind_y, int *ind_x);
 
 
 #endif //FILLIT_FILLIT_H

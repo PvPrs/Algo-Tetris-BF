@@ -35,22 +35,21 @@
 ** 			CCBD\n
 */
 
-void	ft_solve(t_tetrimino *current, size_t size)
+void		ft_solve(t_tetrimino *current, size_t size)
 {
-	char **grid;
-	int y;
+	char	**grid;
+	int		i;
 
-	y = 0;
+	i = 0;
 	grid = ft_grid_gen(size);
-	subtract_coordinates(current, 1);
+	subtract_coordinates(current, 1, 2100);
 	while (check_all_tetr(grid, current, 0, 0) == -1)
-	{
 		grid = ft_grid_gen(ft_strlen(grid[0]) + 1);
-	}
-	while (grid[y] != NULL)
+	while (grid[i] != NULL)
 	{
-		printf("%s\n", grid[y]);
-		y++;
+		ft_putstr(grid[i]);
+		ft_putchar('\n');
+		i++;
 	}
 }
 
@@ -64,45 +63,55 @@ void	ft_solve(t_tetrimino *current, size_t size)
 ** X = horizontal - on the line
 */
 
-int		check_all_tetr(char **grid, t_tetrimino *curr, int index_y, int index_x)
+int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 {
 	int size;
 	int check_ret;
 
 	size = ft_strlen(grid[0]);
-	check_ret = check_tetrimino(grid, *curr, index_y, index_x);
+	check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
 	if (check_ret == 0)
-	{
-		if (index_x < (size - 1))
-			++index_x;
-		else
-		{
-			++index_y;
-			index_x = 0;
-		}
-	}
+		(ind_x < (size - 1)) ? ++ind_x : ++ind_y && (ind_x = 0);
 	if (check_ret == 1)
 	{
 		if (!(curr->next->letter > 'A' && curr->next->letter < 'Z'))
 			return (1);
-		curr->grid_x = index_x;
-		curr->grid_y = index_y;
-		curr = curr->next;
-		index_x = 0;
-		index_y = 0;
+		assign_curr(&curr, &ind_y, &ind_x);
 	}
 	if (check_ret == -1)
 	{
-		curr = curr->prev;
-		delete_from_grid(grid, *curr);
 		if (curr->prev == NULL)
+		{
+			delete_from_grid(grid, *curr);  // this needs fixing for specific combinations, check 42 filechecker
 			return (-1);
-		if (index_x < (size - 1))
-			return (check_all_tetr(grid, curr, curr->grid_y, curr->grid_x + 1));
-		else
-			return (check_all_tetr(grid, curr, curr->grid_y + 1, 0));
+		}
+		curr = curr->prev != NULL ? curr->prev : curr;
+		delete_from_grid(grid, *curr);
+		return (ind_x < (size - 1) ?
+				check_all_tetr(grid, curr, curr->grid_y, curr->grid_x + 1) :
+				check_all_tetr(grid, curr, curr->grid_y + 1, 0));
 	}
-	return (check_all_tetr(grid, curr, index_y, index_x));
+	return (check_all_tetr(grid, curr, ind_y, ind_x));
+}
+
+/*
+** assigns the current node coordinates, and continues to next
+** Resets the coordinates.
+** @param curr
+** @param ind_y
+** @param ind_x
+*/
+
+void		assign_curr(t_tetrimino **curr, int *ind_y, int *ind_x)
+{
+	t_tetrimino	*node;
+
+	node = *curr;
+	node->grid_x = *ind_x;
+	node->grid_y = *ind_y;
+	*curr = node->next;
+	*ind_x = 0;
+	*ind_y = 0;
 }
 
 /*
@@ -114,25 +123,26 @@ int		check_all_tetr(char **grid, t_tetrimino *curr, int index_y, int index_x)
 ** X = horizontal - on the line
 */
 
-int		check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x)
+int			check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x)
 {
 	int y;
 	int x;
 	int size;
 
-	size = strlen(grid[0]);
+	size = ft_strlen(grid[0]);
 	x = 0;
 	y = 0;
 	while (x < 4)
 	{
-		if (index_y + current.y[y] >= size || (index_x + current.x[x] >= size && index_y >= size))
+		if (ind_y + curr.y[y] >= size ||\
+		(ind_x + curr.x[x] >= size && ind_y >= size))
 			return (-1);
-		if (grid[index_y + current.y[y]][index_x + current.x[x]] != '.')
+		if (grid[ind_y + curr.y[y]][ind_x + curr.x[x]] != '.')
 			return (0);
 		x++;
 		y++;
 	}
-	return (add_to_grid(grid, current, index_y, index_x));
+	return (add_to_grid(grid, curr, ind_y, ind_x));
 }
 
 /*
@@ -149,10 +159,9 @@ int		check_tetrimino(char **grid, t_tetrimino current, int index_y, int index_x)
 **    3,3	becomes		1, 2
 */
 
-void		subtract_coordinates(t_tetrimino *head, int check)
+void		subtract_coordinates(t_tetrimino *head, int check, int lowest)
 {
 	t_tetrimino	*current;
-	int			lowest;
 	int			index;
 	int			*coords;
 
@@ -176,6 +185,5 @@ void		subtract_coordinates(t_tetrimino *head, int check)
 		current = current->next;
 	}
 	if (check)
-		subtract_coordinates(head, 0);
+		subtract_coordinates(head, 0, 2100);
 }
-

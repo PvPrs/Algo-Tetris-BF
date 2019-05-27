@@ -29,8 +29,6 @@ int		main(int argc, char **argv)
 	t_tetrimino	*lst;
 	char		**buf;
 	int			size;
-	int			err;
-	char		**grid;
 
 	lst = NULL;
 	buf = malloc(T_SIZE * sizeof(*buf));
@@ -43,8 +41,8 @@ int		main(int argc, char **argv)
 	lst = ft_sort_list(buf, 0, 0, 0);
 	if (lst == NULL || size < 0)
 	{
-		ft_putendl("The applied file contains an incorrect set of tetrimino's.");
-		return (-1);
+		ft_putstr("error\n");
+		exit(1);
 	}
 	else
 		ft_solve(lst, size);

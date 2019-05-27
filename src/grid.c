@@ -31,11 +31,11 @@ char		**ft_grid_gen(size_t size)
 	index = 0;
 	elem_index = 0;
 	grid_size = ft_calc_sqrt(size);
-	map = (char**)malloc((size * sizeof(char*)) + 1);
+	map = malloc((size * sizeof(*map)) + 1);
 	map[grid_size] = NULL;
 	while (index < grid_size)
 	{
-		map[index] = (char*)malloc(grid_size * sizeof(char));
+		map[index] = malloc(grid_size * sizeof(char));
 		while (elem_index < grid_size)
 		{
 			map[index][elem_index] = '.';

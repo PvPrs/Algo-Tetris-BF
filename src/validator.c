@@ -45,7 +45,7 @@ int			ft_validator(char *buf, int blocks, int adjacent, int dots)
 		buf[index] != '.' || dots++;
 		index++;
 	}
-	if (adjacent != 6 || blocks != 4 || dots != 12)
+	if (adjacent < 6 || blocks != 4 || dots != 12)
 		return (-1);
 	return (0);
 }
