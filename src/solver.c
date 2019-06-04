@@ -12,7 +12,7 @@
 
 #include "../includes/fillit.h"
 #include "stdlib.h"
-
+#include <stdio.h>
 /*
 ** Find the smallest possible square with holes to
 ** Each tetrimino must be placed in specific order
@@ -67,11 +67,16 @@ int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 {
 	int size;
 	int check_ret;
-
+	printf("before ft_strlen\n");
 	size = ft_strlen(grid[0]);
-	check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
-	if (check_ret == 0)
+	printf("after ft_strlen, size: %d\n", size);
+    printf("%c, %d, %d\n", curr->letter, ind_y, ind_x);
+    check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
+	printf("after check_ret\n");
+	if (check_ret == 0) {
 		(ind_x < (size - 1)) ? ++ind_x : ++ind_y && (ind_x = 0);
+		printf("got here \n");
+	}
 	if (check_ret == 1)
 	{
 		if (!(curr->next->letter > 'A' && curr->next->letter < 'Z'))
@@ -91,6 +96,7 @@ int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 				check_all_tetr(grid, curr, curr->grid_y, curr->grid_x + 1) :
 				check_all_tetr(grid, curr, curr->grid_y + 1, 0));
 	}
+	printf("%c, %d, %d\n", curr->letter, ind_y, ind_x);
 	return (check_all_tetr(grid, curr, ind_y, ind_x));
 }
 
@@ -128,20 +134,24 @@ int			check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x)
 	int y;
 	int x;
 	int size;
-
+	printf("gets into check_tet\n");
 	size = ft_strlen(grid[0]);
+	printf("gets strlen\n");
 	x = 0;
 	y = 0;
 	while (x < 4)
 	{
 		if (ind_y + curr.y[y] >= size ||\
-		(ind_x + curr.x[x] >= size && ind_y >= size))
-			return (-1);
-		if (grid[ind_y + curr.y[y]][ind_x + curr.x[x]] != '.')
-			return (0);
+		(ind_x + curr.x[x] >= size && ind_y >= size)){
+			printf("%c checked entire grid.\n", curr.letter);
+			return (-1);}
+		if (grid[ind_y + curr.y[y]][ind_x + curr.x[x]] != '.') {
+			printf("%c doesn't fit on y:%d, x:%d, size: %d.\n", curr.letter, ind_y, ind_x, size);
+			return (0);}
 		x++;
 		y++;
 	}
+	printf("%c fit on y:%d, x:%d.\n", curr.letter, ind_y, ind_x);
 	return (add_to_grid(grid, curr, ind_y, ind_x));
 }
 
