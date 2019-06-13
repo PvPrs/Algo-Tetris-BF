@@ -18,7 +18,7 @@ OBJ			= main.o \
 			grid.o \
 			solver.o
 
-FLAGS		= -Wall -Werror -Wextra
+FLAGS		= -Wall -Werror -Wextra -g -ggdb
 
 all: $(NAME)
 

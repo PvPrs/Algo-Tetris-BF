@@ -65,17 +65,28 @@ void		ft_solve(t_tetrimino *current, size_t size)
 
 int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 {
+	static int tries = 0;
 	int size;
 	int check_ret;
-	printf("before ft_strlen\n");
+	//printf("before ft_strlen\n");
 	size = ft_strlen(grid[0]);
-	printf("after ft_strlen, size: %d\n", size);
-    printf("%c, %d, %d\n", curr->letter, ind_y, ind_x);
+	//printf("after ft_strlen, size: %d\n", size);
+    //printf("%c, %d, %d\n", curr->letter, ind_y, ind_x);
+    int index = 0;
+    printf("curr: %c, y:%d, x:%d\n", curr->letter, ind_y, ind_x);
+    while (index < size)
+    	printf("%s\n", grid[index++]);
+    printf("Final\n");
+    tries++;
+    printf("tries: %d\n", tries);
+    if (tries == 47630)
+    	getchar();
+    printf("%p\n", &curr);
     check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
-	printf("after check_ret\n");
+	//printf("after check_ret\n");
 	if (check_ret == 0) {
 		(ind_x < (size - 1)) ? ++ind_x : ++ind_y && (ind_x = 0);
-		printf("got here \n");
+		//printf("got here \n");
 	}
 	if (check_ret == 1)
 	{
@@ -96,7 +107,7 @@ int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 				check_all_tetr(grid, curr, curr->grid_y, curr->grid_x + 1) :
 				check_all_tetr(grid, curr, curr->grid_y + 1, 0));
 	}
-	printf("%c, %d, %d\n", curr->letter, ind_y, ind_x);
+	//printf("%c, y:%d, x:%d\n", curr->letter, ind_y, ind_x);
 	return (check_all_tetr(grid, curr, ind_y, ind_x));
 }
 
@@ -135,8 +146,8 @@ int			check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x)
 	int x;
 	int size;
 	printf("gets into check_tet\n");
-	size = ft_strlen(grid[0]);
-	printf("gets strlen\n");
+	size = (int) ft_strlen(grid[0]);
+	printf("gets strlen: %d\n", size);
 	x = 0;
 	y = 0;
 	while (x < 4)
@@ -148,6 +159,7 @@ int			check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x)
 		if (grid[ind_y + curr.y[y]][ind_x + curr.x[x]] != '.') {
 			printf("%c doesn't fit on y:%d, x:%d, size: %d.\n", curr.letter, ind_y, ind_x, size);
 			return (0);}
+		printf("Looped through again.\n");
 		x++;
 		y++;
 	}
