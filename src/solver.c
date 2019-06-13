@@ -68,21 +68,19 @@ int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 	static int tries = 0;
 	int size;
 	int check_ret;
-	//printf("before ft_strlen\n");
+
 	size = ft_strlen(grid[0]);
-	//printf("after ft_strlen, size: %d\n", size);
-    //printf("%c, %d, %d\n", curr->letter, ind_y, ind_x);
-    int index = 0;
-    printf("curr: %c, y:%d, x:%d\n", curr->letter, ind_y, ind_x);
-    while (index < size)
-    	printf("%s\n", grid[index++]);
-    printf("Final\n");
-    tries++;
-    printf("tries: %d\n", tries);
-    if (tries == 47630)
-    	getchar();
-    printf("%p\n", &curr);
-    check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
+	int index = 0;
+	printf("curr: %c, y:%d, x:%d\n", curr->letter, ind_y, ind_x);
+	while (index < size)
+		printf("%s\n", grid[index++]);
+	printf("Final\n");
+	tries++;
+	printf("tries: %d\n", tries);
+	if (tries == 47630)
+		getchar();
+	printf("%p\n", &curr);
+	check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
 	//printf("after check_ret\n");
 	if (check_ret == 0) {
 		(ind_x < (size - 1)) ? ++ind_x : ++ind_y && (ind_x = 0);

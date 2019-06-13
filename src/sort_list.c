@@ -34,7 +34,7 @@ t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 	{
 		if (ft_validator(*buf, 0, 0, 0) == -1)
 			return (NULL);
-		while ((*buf)[index])
+		while ((*buf)[index] != '\0')
 		{
 			if ((*buf)[index] == '#')
 			{

@@ -39,6 +39,7 @@ int		main(int argc, char **argv)
 	}
 	size = ft_read(argv[1], buf);
 	lst = ft_sort_list(buf, 0, 0, 0);
+	ft_free_array((void **)buf);
 	if (lst == NULL || size < 0)
 	{
 		ft_putstr("error\n");

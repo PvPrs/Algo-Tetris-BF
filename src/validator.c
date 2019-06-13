@@ -24,22 +24,25 @@
 int			ft_validator(char *buf, int blocks, int adjacent, int dots)
 {
 	int index;
+	int size;
 
+	size = ft_strlen(buf) - 1;
 	index = 0;
-	while (buf[index])
+	while (index < size)
 	{
 		if ((buf[index] != '#' && buf[index] != '.' && buf[index] != '\n'))
 			return (-1);
 		if (buf[index] == '#')
 		{
 			blocks++;
-			if (buf[index - 1] == '#')
+
+			if (index - 1 >= 0 && buf[index - 1] == '#')
 				adjacent++;
-			if (buf[index + 1] == '#')
+			if (index + 1 <= size && buf[index + 1] == '#')
 				adjacent++;
-			if (buf[index + 5] == '#')
+			if (index + 5 <= size && buf[index + 5] == '#')
 				adjacent++;
-			if (buf[index - 5] == '#')
+			if (index - 5 >= 0 && buf[index - 5] == '#')
 				adjacent++;
 		}
 		buf[index] != '.' || dots++;

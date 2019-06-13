@@ -44,6 +44,7 @@ SRC = string/ft_revstr.c \
 	string/ft_strdel.c \
 	mem/ft_memmove.c \
 	mem/ft_memdel.c \
+	mem/ft_free_array.c \
 	string/ft_strncmp.c \
 	utils/ft_int_to_binary.c \
 	print/ft_putnbr.c \
@@ -128,6 +129,7 @@ OBJ = ft_striter.o \
 	ft_putstr_fd.o \
 	ft_striteri.o \
 	ft_memalloc.o \
+	ft_free_array.o \
 	ft_strclr.o \
 	ft_putstr.o \
 	ft_lstiter.o \
