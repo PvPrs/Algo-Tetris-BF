@@ -30,7 +30,7 @@ char		**ft_grid_gen(size_t size)
 
 	index = 0;
 	elem_index = 0;
-	grid_size = ft_calc_sqrt(size);
+	grid_size = 7;
 	map = malloc((size * sizeof(*map)) + 1);
 	map[grid_size] = NULL;
 	while (index < grid_size)

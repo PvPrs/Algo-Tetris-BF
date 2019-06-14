@@ -69,7 +69,7 @@ int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
 	int size;
 	int check_ret;
 
-	size = ft_strlen(grid[0]);
+	size = ft_strlen(grid[0]) - 1;
 	int index = 0;
 	printf("curr: %c, y:%d, x:%d\n", curr->letter, ind_y, ind_x);
 	while (index < size)
@@ -143,14 +143,14 @@ int			check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x)
 	int y;
 	int x;
 	int size;
-	printf("gets into check_tet\n");
-	size = (int) ft_strlen(grid[0]);
+
+	size = (int) ft_strlen(grid[0]) - 1;
 	printf("gets strlen: %d\n", size);
 	x = 0;
 	y = 0;
 	while (x < 4)
 	{
-		if (ind_y + curr.y[y] >= size ||\
+		if (ind_y + curr.y[y] >= size ||
 		(ind_x + curr.x[x] >= size && ind_y >= size)){
 			printf("%c checked entire grid.\n", curr.letter);
 			return (-1);}
