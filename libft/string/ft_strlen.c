@@ -18,10 +18,6 @@ size_t		ft_strlen(const char *s)
 
 	index = 0;
 	while (s[index] != '\0')
-	{
 		index++;
-		if (s[index] == '\0')
-			break;
-	}
 		return (index);
 }
