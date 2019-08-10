@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fillit.h"
+#include <stdio.h>
 
 /*
 ** Genererates a 2D Array performing as a grid
@@ -31,12 +32,10 @@ char		**ft_grid_gen(size_t size)
 	index = 0;
 	elem_index = 0;
 	grid_size = ft_calc_sqrt(size);
-    map = malloc((grid_size + 1) * sizeof(*map));
-	map[grid_size] = NULL;
+	map = ft_memalloc((grid_size + 1) * sizeof(*map));
 	while (index < grid_size)
 	{
-		map[index] = malloc((grid_size + 1) * sizeof(char));
-		map[index][grid_size] = '\0';
+		map[index] = ft_memalloc((grid_size + 1) * sizeof(char));
 		while (elem_index < grid_size)
 		{
 			map[index][elem_index] = '.';

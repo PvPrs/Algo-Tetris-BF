@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fillit.h"
+#include <stdio.h>
 
 /*
 ** Checks if the tetrimino's are valid and
@@ -35,15 +36,7 @@ int			ft_validator(char *buf, int blocks, int adjacent, int dots)
 		if (buf[index] == '#')
 		{
 			blocks++;
-
-			if (index - 1 >= 0 && buf[index - 1] == '#')
-				adjacent++;
-			if (index + 1 <= size && buf[index + 1] == '#')
-				adjacent++;
-			if (index + 5 <= size && buf[index + 5] == '#')
-				adjacent++;
-			if (index - 5 >= 0 && buf[index - 5] == '#')
-				adjacent++;
+			check_adjacent(&buf, &index, &adjacent);
 		}
 		buf[index] != '.' || dots++;
 		index++;
@@ -51,4 +44,21 @@ int			ft_validator(char *buf, int blocks, int adjacent, int dots)
 	if (adjacent < 6 || blocks != 4 || dots != 12)
 		return (-1);
 	return (0);
+}
+
+void		check_adjacent(char **buf, int *index, int *adjacent)
+{
+	char	*grid;
+	int		size;
+
+	grid = *buf;
+	size = ft_strlen(grid);
+	if (*index - 1 >= 0 && grid[*index - 1] == '#')
+		*adjacent += 1;
+	if (*index + 1 <= size && grid[*index + 1] == '#')
+		*adjacent += 1;
+	if (*index + 5 <= size && grid[*index + 5] == '#')
+		*adjacent += 1;
+	if (*index - 5 >= 0 && grid[*index - 5] == '#')
+		*adjacent += 1;
 }

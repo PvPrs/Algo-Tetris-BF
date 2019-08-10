@@ -91,6 +91,5 @@ unsigned long		ft_sqrt(unsigned long x);
 char				*ft_revstr(char *str);
 int					get_next_line(const int fd, char **line);
 int					ft_bit_to_max_int(int max_bit_size);
-char				*ft_int_to_binary(int amount);
 void				ft_free_array(void **arr);
 #endif

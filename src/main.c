@@ -29,9 +29,10 @@ int		main(int argc, char **argv)
 	t_tetrimino	*lst;
 	char		**buf;
 	int			size;
+	t_tetrimino *temp;
 
 	lst = NULL;
-	buf = malloc(T_SIZE * sizeof(*buf));
+	buf = ft_memalloc(T_SIZE * sizeof(*buf));
 	if (argc != 2)
 	{
 		ft_putendl("USAGE: fillit [FILE]");
@@ -47,4 +48,11 @@ int		main(int argc, char **argv)
 	}
 	else
 		ft_solve(lst, size);
+	while (lst->next != NULL)
+	{
+		temp = lst;
+		lst = lst->next;
+		free(temp);
+	}
+	free(lst);
 }

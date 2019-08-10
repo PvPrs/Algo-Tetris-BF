@@ -21,12 +21,12 @@ unsigned int	ft_sqrt(unsigned int number)
 
 	n = 1;
 	n1 = NEXT(n, number);
-	while((n1 - n) > 1)
+	while ((n1 - n) > 1)
 	{
-		n  = n1;
+		n = n1;
 		n1 = NEXT(n, number);
 	}
-	while(n1 * n1 > number)
+	while (n1 * n1 > number)
 		n1--;
-	return n1;
+	return (n1);
 }

@@ -28,7 +28,7 @@ t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 	int			index;
 
 	index = 0;
-	curr = malloc(sizeof(*curr));
+	curr = ft_memalloc(sizeof(*curr));
 	head = curr;
 	while (*buf != NULL)
 	{
@@ -81,8 +81,7 @@ void			set_tetr_properties(t_tetrimino **curr)
 
 	node = *curr;
 	node->letter = letter;
-	node->next = malloc(sizeof(*node));
-	node->next->prev = node;
+	node->next = ft_memalloc(sizeof(*node));
 	letter++;
 	*curr = node->next;
 }

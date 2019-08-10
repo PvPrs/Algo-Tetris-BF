@@ -46,7 +46,6 @@ SRC = string/ft_revstr.c \
 	mem/ft_memdel.c \
 	mem/ft_free_array.c \
 	string/ft_strncmp.c \
-	utils/ft_int_to_binary.c \
 	print/ft_putnbr.c \
 	mem/ft_memcpy.c \
 	mem/ft_memchr.c \
@@ -148,7 +147,6 @@ OBJ = ft_striter.o \
 	ft_sqrt.o \
 	ft_revstr.o \
 	ft_bit_to_max_int.o \
-	ft_int_to_binary.o \
 	get_next_line.o \
 
 all: $(NAME)

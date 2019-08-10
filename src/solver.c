@@ -12,7 +12,7 @@
 
 #include "../includes/fillit.h"
 #include "stdlib.h"
-#include <stdio.h>
+
 /*
 ** Find the smallest possible square with holes to
 ** Each tetrimino must be placed in specific order
@@ -43,77 +43,47 @@ void		ft_solve(t_tetrimino *current, size_t size)
 	i = 0;
 	grid = ft_grid_gen(size);
 	subtract_coordinates(current, 1, 2100);
-	while (check_all_tetr(grid, current, 0, 0) == -1)
-		grid = ft_grid_gen(ft_strlen(grid[0]) + 1);
+	while (check_all_tetr(grid, current) == 0)
+	{
+		size++;
+		grid = ft_grid_gen(size);
+	}
 	while (grid[i] != NULL)
 	{
 		ft_putstr(grid[i]);
 		ft_putchar('\n');
 		i++;
 	}
+	ft_free_array((void **)grid);
 }
 
-/*
-** Checks all the tetrimino's in order, in a rescursive manner.
-** @param size
-** @return -1 = Checked the entire grid
-** @return 0 = doesn't fit on specific index
-** @return 1 = fits.
-** Y = vertical - line number
-** X = horizontal - on the line
-*/
-
-int			check_all_tetr(char **grid, t_tetrimino *curr, int ind_y, int ind_x)
+int			check_all_tetr(char **grid, t_tetrimino *curr)
 {
-	//static int tries = 0;
-	int size;
-	int check_ret;
+	int ind_y;
+	int ind_x;
 
-	size = ft_strlen(grid[0]);
-	check_ret = check_tetrimino(grid, *curr, ind_y, ind_x);
-	if (check_ret == 0) {
-		(ind_x < (size - 1)) ? ++ind_x : ++ind_y && (ind_x = 0);
-	}
-	if (check_ret == 1)
+	ind_y = 0;
+	ind_x = 0;
+	if (curr->next == 0)
+		return (1);
+	while (grid[ind_y])
 	{
-		if (!(curr->next->letter > 'A' && curr->next->letter < 'Z'))
-			return (1);
-		assign_curr(&curr, &ind_y, &ind_x);
-	}
-	if (check_ret == -1)
-	{
-		if (curr->prev == NULL)
+		if (check_tetr(grid, *curr, ind_y, ind_x) == 1)
 		{
-			delete_from_grid(grid, *curr);
-			return (-1);
+			add_to_grid(grid, *curr, ind_y, ind_x);
+			if (check_all_tetr(grid, curr->next) == 1)
+				return (1);
+			else
+				delete_from_grid(grid, *curr);
 		}
-		curr = curr->prev != NULL ? curr->prev : curr;
-		delete_from_grid(grid, *curr);
-		return (ind_x < (size - 1) ?
-				check_all_tetr(grid, curr, curr->grid_y, curr->grid_x + 1) :
-				check_all_tetr(grid, curr, curr->grid_y + 1, 0));
+		ind_x++;
+		if (grid[ind_y][ind_x] == '\0')
+		{
+			ind_x = 0;
+			ind_y++;
+		}
 	}
-	return (check_all_tetr(grid, curr, ind_y, ind_x));
-}
-
-/*
-** assigns the current node coordinates, and continues to next
-** Resets the coordinates.
-** @param curr
-** @param ind_y
-** @param ind_x
-*/
-
-void		assign_curr(t_tetrimino **curr, int *ind_y, int *ind_x)
-{
-	t_tetrimino	*node;
-
-	node = *curr;
-	node->grid_x = *ind_x;
-	node->grid_y = *ind_y;
-	*curr = node->next;
-	*ind_x = 0;
-	*ind_y = 0;
+	return (0);
 }
 
 /*
@@ -125,26 +95,22 @@ void		assign_curr(t_tetrimino **curr, int *ind_y, int *ind_x)
 ** X = horizontal - on the line
 */
 
-int			check_tetrimino(char **grid, t_tetrimino curr, int ind_y, int ind_x)
+int			check_tetr(char **grid, t_tetrimino curr, int ind_y, int ind_x)
 {
-	int y;
-	int x;
+	int coord;
 	int size;
 
 	size = ft_strlen(grid[0]);
-	x = 0;
-	y = 0;
-	while (x < 4)
+	coord = 0;
+	while (coord < 4)
 	{
-		if (ind_y + curr.y[y] >= size)
-			return (-1);
-		if (grid[ind_y + curr.y[y]][ind_x + curr.x[x]] != '.')
+		if (ind_y + curr.y[coord] >= size)
 			return (0);
-		x++;
-		y++;
+		if (grid[ind_y + curr.y[coord]][ind_x + curr.x[coord]] != '.')
+			return (0);
+		coord++;
 	}
-	//printf("%c fit on y:%d, x:%d.\n", curr.letter, ind_y, ind_x);
-	return (add_to_grid(grid, curr, ind_y, ind_x));
+	return (1);
 }
 
 /*

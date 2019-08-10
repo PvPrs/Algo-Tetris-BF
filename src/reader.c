@@ -12,9 +12,9 @@
 
 #include "../includes/fillit.h"
 #include <fcntl.h>
+#include <stdio.h>
 
 /*
-**
 ** @param file represents the file name to be read.
 ** @return returns an integer
 ** Reads a file containing multiple tetrmino's ranging from 1 to 26 tetrimino's
@@ -35,12 +35,12 @@ int		ft_read(const char *file, char **buf)
 
 	t_index = 0;
 	fd = open(file, O_RDONLY);
-	buf[t_index] = malloc(BUFF_SIZE * sizeof(*buf));
+	buf[t_index] = ft_memalloc((BUFF_SIZE + 1) * sizeof(char));
 	ret = read(fd, buf[t_index], BUFF_SIZE);
 	t_index++;
 	while (ret == 21 && t_index < 27)
 	{
-		buf[t_index] = malloc(BUFF_SIZE * sizeof(**buf));
+		buf[t_index] = ft_memalloc((BUFF_SIZE + 1) * sizeof(char));
 		ret = read(fd, buf[t_index], BUFF_SIZE);
 		t_index++;
 	}
