@@ -12,18 +12,6 @@
 
 #include "../includes/fillit.h"
 
-/*
-**
-** @param argc Counts the amount of arguments given, default is 1.
-** @param argv Represents the filename to read.
-** @return Returns an int {0} on completion.
-** The purpose of the tetrimino's is to find the smallest
-** possible solution to the smallest possible square.
-**
-** @reader read the given file and store each tetrimino in a multi_dimensional array @link#main -> buf[tetrimino_id][read_bits].
-** @sort_list sort the Multi_dimensional_array into a list containing the ID, and each #'s coordinate {X, Y}
-** @solver Find the smallest possible solution to a {x * x} sided square ignoring holes with the stored tetriminos
-*/
 int		main(int argc, char **argv)
 {
 	t_tetrimino	*lst;
@@ -55,4 +43,5 @@ int		main(int argc, char **argv)
 		free(temp);
 	}
 	free(lst);
+	return (0);
 }

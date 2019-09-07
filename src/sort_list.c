@@ -37,19 +37,36 @@ t_tetrimino		*ft_sort_list(char **buf, int x, int y, int block)
 		while ((*buf)[index] != '\0')
 		{
 			if ((*buf)[index] == '#')
-			{
-				curr->x[block] = x;
-				curr->y[block] = y;
-				block++;
-			}
-			(*buf)[index] == '\n' && index != 19 ? y++, x = 0 : x++;
-			index++;
+				set_coords(&curr, &block, x, y);
+			ft_next_pos((*buf)[index], &index, &y, &x);
 		}
 		set_tetr_properties(&curr);
 		reset_vars(&block, &x, &y, &index);
 		buf++;
 	}
 	return (head);
+}
+
+void			ft_next_pos(char pos, int *index, int *y, int *x)
+{
+	if (pos == '\n' && *index != 19)
+	{
+		*y += 1;
+		*x = 0;
+	}
+	else
+		*x += 1;
+	*index += 1;
+}
+
+void			set_coords(t_tetrimino **curr, int *block, int x, int y)
+{
+	t_tetrimino *node;
+
+	node = *curr;
+	node->x[*block] = x;
+	node->y[*block] = y;
+	*block += 1;
 }
 
 /*
