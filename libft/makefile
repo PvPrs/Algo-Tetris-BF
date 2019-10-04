@@ -80,6 +80,7 @@ SRC = string/ft_revstr.c \
 	list/ft_lstmap.c \
 	utils/ft_bit_to_max_int.c \
 	utils/ft_sqrt.c \
+	utils/ft_reinitialize.c \
 	string/ft_strtrim.c \
 
 OBJ = ft_striter.o \
@@ -148,6 +149,7 @@ OBJ = ft_striter.o \
 	ft_revstr.o \
 	ft_bit_to_max_int.o \
 	get_next_line.o \
+	ft_reinitialize.o \
 
 all: $(NAME)
 

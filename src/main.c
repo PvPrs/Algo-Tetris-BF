@@ -12,15 +12,14 @@
 
 #include "../includes/fillit.h"
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_tetrimino	*lst;
 	char		**buf;
 	int			size;
-	t_tetrimino *temp;
 
 	lst = NULL;
-	buf = ft_memalloc(T_SIZE * sizeof(*buf));
+	buf = ft_memalloc(26 * sizeof(char *));
 	if (argc != 2)
 	{
 		ft_putendl("USAGE: fillit [FILE]");
@@ -36,6 +35,14 @@ int		main(int argc, char **argv)
 	}
 	else
 		ft_solve(lst, size);
+	ft_shutdown(lst);
+	return (0);
+}
+
+void		ft_shutdown(t_tetrimino *lst)
+{
+	t_tetrimino *temp;
+
 	while (lst->next != NULL)
 	{
 		temp = lst;
@@ -43,5 +50,4 @@ int		main(int argc, char **argv)
 		free(temp);
 	}
 	free(lst);
-	return (0);
 }

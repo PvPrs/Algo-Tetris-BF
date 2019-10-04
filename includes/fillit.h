@@ -17,7 +17,6 @@
 ** T_SIZE represents the maximum amount of tetrimino's
 ** BUFF_SIZE represents the maximum amount of bits read
 */
-# define T_SIZE 26
 # define BUFF_SIZE 21
 
 # include "../libft/includes/libft.h"
@@ -53,5 +52,8 @@ void			delete_from_grid(char **grid, t_tetrimino current);
 void			reset_vars(int *block, int *x, int *y, int *index);
 void			set_tetr_properties(t_tetrimino **curr);
 void			check_adjacent(char **buf, int *index, int *adjacent);
+void			set_coords(t_tetrimino **curr, int *block, int x, int y);
+void			ft_next_pos(char pos, int *index, int *y, int *x);
+void			ft_shutdown(t_tetrimino *lst);
 
 #endif
